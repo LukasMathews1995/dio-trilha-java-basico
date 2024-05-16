@@ -48,3 +48,4 @@ System.out.println("atendeu");
     public void selecionarMusica() {
         System.out.println("musica selecionada");
 }
+}
