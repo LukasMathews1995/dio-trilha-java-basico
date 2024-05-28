@@ -16,7 +16,7 @@ conta.sacar(500);*/
             cc.depositar(5000);
 
 
-          cliente.mostrarDadosdaConta(cc);
+          cliente.mostrarDadosdoCliente(cc);
 
             }
     }

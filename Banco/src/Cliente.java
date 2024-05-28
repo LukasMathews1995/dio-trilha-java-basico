@@ -48,20 +48,23 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
 
     public void cadastrarConta(Conta c) {
         if(c.getClass().equals(ContaCorrente.class)){
+            c= new ContaCorrente();
             conta.add(c);
         }
         else if(c.getClass().equals(ContaPoupanca.class)){
+            c = new ContaPoupanca();
             conta.add(c);
         }else{
+
             conta.add(c);
         }
 
     }
 
-    public void mostrarDadosdaConta(Conta c) {
+    public void mostrarDadosdoCliente(Conta c) {
 
     if(c.getClass().equals(ContaCorrente.class)) {
-        for (int i = 0; i < conta.size(); i++) {
+        for (int i = 0; i <= conta.size(); i++) {
 
 
             System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s variacao: %d \n ", getNome(), getTelefone(), getDataDeNascimento(),((ContaCorrente) c).getContaVariada());
@@ -69,7 +72,7 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
         }
 
     } else if ((c.getClass().equals(ContaPoupanca.class)))
-        for (int i = 0; i < conta.size(); i++) {
+        for (int i = 0; i <= conta.size(); i++) {
 
 
         System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s variacao: %d \n ", getNome(), getTelefone(), getDataDeNascimento(),((ContaPoupanca) c).getContaVariada());
@@ -77,7 +80,7 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
     }
 
     else
-        for (int i = 0; i < conta.size(); i++) {
+        for (int i = 0; i <= conta.size(); i++) {
 
 
             System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s  \n ", getNome(), getTelefone(), getDataDeNascimento());

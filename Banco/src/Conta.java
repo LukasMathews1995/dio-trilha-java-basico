@@ -1,9 +1,9 @@
 public abstract class Conta implements IConta {
     protected static int NUMERO_CONTA=5000;
     protected static int AGENCIA = 281;
-    protected int numero;
-    protected int agencia;
-    protected double saldo;
+    private int numero;
+    private int agencia;
+    private double saldo;
 
 
 
