@@ -7,18 +7,28 @@ private String nome;
 private String cpf;
 private String telefone;
 private final LocalDate dataDeNascimento;
-private Set<Conta> conta= new LinkedHashSet<>();
+private Set<ContaPoupanca> contaPoupanca = new LinkedHashSet<>();
+    private Set<ContaCorrente> contaCorrente = new LinkedHashSet<>();
 
 
+    public Cliente(String nome, String cpf, String telefone, String dataDeNascimento,ContaPoupanca contaPoupanca) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
+        this.getContaPoupanca().add(contaPoupanca);
 
 
-public Cliente(String nome, String cpf, String telefone, String dataDeNascimento,Conta conta) {
+    }
+
+public Cliente(String nome, String cpf, String telefone, String dataDeNascimento,ContaCorrente contaCorrente) {
     this.nome = nome;
     this.cpf = cpf;
     this.telefone = telefone;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
-    this.cadastrarConta(conta);
+    this.getContaCorrente().add(contaCorrente);
 
 
 }
@@ -34,42 +44,37 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
     public String getTelefone() {
         return telefone;
     }
+    public Set<ContaPoupanca> getContaPoupanca() {
+        return contaPoupanca;
+    }
+
+    public void setContaPoupanca(Set<ContaPoupanca> contaPoupanca) {
+        this.contaPoupanca = contaPoupanca;
+    }
+
+    public Set<ContaCorrente> getContaCorrente() {
+        return contaCorrente;
+    }
+
+    public void setContaCorrente(Set<ContaCorrente> contaCorrente) {
+        this.contaCorrente = contaCorrente;
+    }
 
     public String getDataDeNascimento() {
     String dataNascimento = dataDeNascimento.toString();
      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
      return LocalDate.parse(dataNascimento).format(formatter);
     }
+    public void adicionarConta(Conta conta1) {
+        if(conta1.getClass().equals(ContaCorrente.class)){
+            this.getContaCorrente().add((ContaCorrente) conta1);}
+        else if(conta1.getClass().equals(ContaPoupanca.class)){
 
-
-
-    private void cadastrarConta(Conta c) {
-        if(c.getClass().equals(ContaCorrente.class)){
-
-            conta.add(c);
+            this.getContaPoupanca().add((ContaPoupanca) conta1);
         }
-        else if(c.getClass().equals(ContaPoupanca.class)){
-
-            conta.add(c);
-        }else{
-
-            conta.add(c);
-        }
-
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(getNome(), cliente.getNome()) && Objects.equals(getCpf(), cliente.getCpf()) && Objects.equals(getTelefone(), cliente.getTelefone()) && Objects.equals(getDataDeNascimento(), cliente.getDataDeNascimento()) && Objects.equals(conta, cliente.conta);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getNome(), getCpf(), getTelefone(), getDataDeNascimento(), conta);
-    }
 
     public void mostrarDadosdoCliente(Conta c) {
 
@@ -84,6 +89,29 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
     }
 
 
+        }
+    public void removerConta(Conta conta1){
+        if(conta1.getClass().equals(ContaCorrente.class)){
+        this.getContaCorrente().remove(conta1);}
+        else if(conta1.getClass().equals(ContaPoupanca.class)){
+            this.getContaPoupanca().remove(conta1);
+        }
+    }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Cliente cliente = (Cliente) o;
+            return Objects.equals(getNome(), cliente.getNome()) && Objects.equals(getCpf(), cliente.getCpf()) && Objects.equals(getTelefone(), cliente.getTelefone()) && Objects.equals(getDataDeNascimento(), cliente.getDataDeNascimento()) && Objects.equals(contaPoupanca, cliente.contaPoupanca);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getNome(), getCpf(), getTelefone(), getDataDeNascimento(), contaPoupanca);
+        }
+
 
     }
-}
+
+
+

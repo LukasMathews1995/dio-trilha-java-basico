@@ -50,7 +50,7 @@ public abstract class Conta implements IConta {
 
     public void imprimirExtrato(Cliente cliente) {
 
-        System.out.println("Bem vindo : " + cliente.getNome());
+        System.out.println("Ola  " + cliente.getNome());
         System.out.printf("Seu saldo é : %.2f\n",getSaldo());
 
     }
