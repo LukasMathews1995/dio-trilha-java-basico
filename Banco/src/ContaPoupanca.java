@@ -3,9 +3,9 @@ public class ContaPoupanca extends Conta {
     private int contaVariada;
 
     public ContaPoupanca() {
-        super(0);
+
         this.contaVariada = VARIACAO++;
-        System.out.printf("Sua conta é %d e sua variação da poupança é %d\n " , getNumero(),getContaVariada());
+        System.out.printf("Sua conta é : %d e sua variação da poupança é : %d\n " , getNumero(),getContaVariada());
 
     }
     public int getContaVariada() {

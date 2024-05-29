@@ -1,26 +1,25 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import java.util.List;
+import java.util.*;
 
 public class Cliente {
 private String nome;
 private String cpf;
 private String telefone;
-private LocalDate dataDeNascimento;
-private List<Conta> conta;
+private final LocalDate dataDeNascimento;
+private Set<Conta> conta= new LinkedHashSet<>();
 
 
 
 
-public Cliente(String nome, String cpf, String telefone, String dataDeNascimento) {
+public Cliente(String nome, String cpf, String telefone, String dataDeNascimento,Conta conta) {
     this.nome = nome;
     this.cpf = cpf;
     this.telefone = telefone;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
-    conta = new ArrayList<Conta>();
+    this.cadastrarConta(conta);
+
 
 }
 
@@ -41,18 +40,16 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
      return LocalDate.parse(dataNascimento).format(formatter);
     }
-    public List<Conta> getConta() {
-    return conta;
-    }
 
 
-    public void cadastrarConta(Conta c) {
+
+    private void cadastrarConta(Conta c) {
         if(c.getClass().equals(ContaCorrente.class)){
-            c= new ContaCorrente();
+
             conta.add(c);
         }
         else if(c.getClass().equals(ContaPoupanca.class)){
-            c = new ContaPoupanca();
+
             conta.add(c);
         }else{
 
@@ -61,31 +58,30 @@ public Cliente(String nome, String cpf, String telefone, String dataDeNascimento
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getNome(), cliente.getNome()) && Objects.equals(getCpf(), cliente.getCpf()) && Objects.equals(getTelefone(), cliente.getTelefone()) && Objects.equals(getDataDeNascimento(), cliente.getDataDeNascimento()) && Objects.equals(conta, cliente.conta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNome(), getCpf(), getTelefone(), getDataDeNascimento(), conta);
+    }
+
     public void mostrarDadosdoCliente(Conta c) {
 
     if(c.getClass().equals(ContaCorrente.class)) {
-        for (int i = 0; i <= conta.size(); i++) {
+            System.out.printf("Nome : %s, Numero de telefone : %s ,data de nascimento : %s  e tipo de Conta : Corrente \n ", getNome(), getTelefone(), getDataDeNascimento());
 
+        }else if(c.getClass().equals(ContaPoupanca.class)){
+        System.out.printf("Nome : %s , Numero de telefone : %s , data de nascimento : %s e tipo de Conta : Poupança \n ", getNome(), getTelefone(), getDataDeNascimento());
 
-            System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s variacao: %d \n ", getNome(), getTelefone(), getDataDeNascimento(),((ContaCorrente) c).getContaVariada());
-
-        }
-
-    } else if ((c.getClass().equals(ContaPoupanca.class)))
-        for (int i = 0; i <= conta.size(); i++) {
-
-
-        System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s variacao: %d \n ", getNome(), getTelefone(), getDataDeNascimento(),((ContaPoupanca) c).getContaVariada());
-
+    }else {
+        System.out.printf("Nome : %s ,Numero de telefone : %s , data de nascimento : %s \n ", getNome(), getTelefone(), getDataDeNascimento());
     }
-
-    else
-        for (int i = 0; i <= conta.size(); i++) {
-
-
-            System.out.printf("Nome : %s numero de telefone : %s e data de nascimento : %s  \n ", getNome(), getTelefone(), getDataDeNascimento());
-
-        }
 
 
 

@@ -4,7 +4,7 @@ public class ContaCorrente extends Conta {
 
 
     public ContaCorrente() {
-        super(0);
+
         this.contaVariada = VARIACAO++;
         System.out.printf("Sua conta é %d e sua variação da corrente é %d\n " , getNumero(),getContaVariada());
 

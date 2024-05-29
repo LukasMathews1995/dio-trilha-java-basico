@@ -7,10 +7,10 @@ public abstract class Conta implements IConta {
 
 
 
-    public Conta( double saldo ) {
+    public Conta(  ) {
         this.numero = NUMERO_CONTA++;
         this.agencia = AGENCIA;
-        this.saldo = saldo;
+
 
 
 
