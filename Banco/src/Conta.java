@@ -1,16 +1,16 @@
 public abstract class Conta implements IConta {
     protected static int NUMERO_CONTA=5000;
     protected static int AGENCIA = 281;
-    private int numero;
-    private int agencia;
-    private double saldo;
+    protected int numero;
+    protected int agencia;
+    protected double saldo;
 
 
 
-    public Conta(  ) {
+    public Conta( double saldo ) {
         this.numero = NUMERO_CONTA++;
         this.agencia = AGENCIA;
-
+        this.saldo = saldo;
 
 
 
@@ -43,19 +43,22 @@ public abstract class Conta implements IConta {
 
 
     public   void transferir(double valor,Conta c){
+        if(valor >0){
         this.sacar(valor);
         c.depositar(valor);
+        }else {
+            throw new IllegalArgumentException("O valor deve ser maior que 0 Reais");
+        }
     }
 
 
     public void imprimirExtrato(Cliente cliente) {
 
-        System.out.println("Ola  " + cliente.getNome());
+        System.out.println("Bem vindo : " + cliente.getNome());
         System.out.printf("Seu saldo é : %.2f\n",getSaldo());
 
     }
 }
-
 
 
 
